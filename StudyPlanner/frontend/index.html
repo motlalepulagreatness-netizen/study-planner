@@ -1,0 +1,328 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sp-wrap{font-family:var(--font-sans);background:var(--color-background-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.sp-header{background:#1D9E75;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.sp-logo{display:flex;align-items:center;gap:10px}
+.sp-logo-icon{width:32px;height:32px;background:rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+.sp-logo-text{color:#fff;font-size:15px;font-weight:500}
+.sp-logo-sub{color:rgba(255,255,255,0.7);font-size:11px;margin-top:1px}
+.sp-nav{display:flex;gap:4px}
+.sp-nav-btn{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,0.75);transition:all .15s;display:flex;align-items:center;gap:5px}
+.sp-nav-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.sp-nav-btn.active{background:rgba(255,255,255,0.22);color:#fff}
+.sp-nav-btn i{font-size:14px}
+.sp-body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.panel{display:none}.panel.active{display:flex;flex-direction:column;gap:16px}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;display:flex;align-items:center;gap:12px}
+.kpi-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.kpi-icon.teal{background:#E1F5EE;color:#0F6E56}
+.kpi-icon.purple{background:#EEEDFE;color:#534AB7}
+.kpi-icon.amber{background:#FAEEDA;color:#854F0B}
+.kpi-val{font-size:20px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.kpi-label{font-size:11px;color:var(--color-text-tertiary);margin-top:3px}
+.section-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:2px}
+.course-grid{display:flex;flex-direction:column;gap:8px}
+.c-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;align-items:center;gap:14px}
+.c-ring-wrap{flex-shrink:0}
+.c-info{flex:1;min-width:0}
+.c-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.c-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.c-bar-wrap{margin-top:8px;height:5px;background:var(--color-border-tertiary);border-radius:3px;overflow:hidden}
+.c-bar{height:100%;border-radius:3px;transition:width .5s}
+.pill{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:500;flex-shrink:0}
+.pill-diff{background:#EEEDFE;color:#3C3489}
+.pill-done{background:#E1F5EE;color:#085041}
+.c-actions{display:flex;gap:6px;flex-shrink:0}
+.icon-btn{width:30px;height:30px;border-radius:7px;border:0.5px solid var(--color-border-tertiary);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--color-text-secondary);transition:all .15s}
+.icon-btn:hover{background:var(--color-background-secondary)}
+.icon-btn.danger:hover{background:#FCEBEB;color:#A32D2D;border-color:#F09595}
+.add-btn{width:100%;padding:10px;border:0.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-lg);background:transparent;color:var(--color-text-secondary);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.add-btn:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.form-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px}
+.form-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.form-title i{font-size:16px;color:#1D9E75}
+.fg{margin-bottom:12px}
+.fg label{font-size:12px;color:var(--color-text-secondary);display:block;margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:8px 10px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary)}
+.fg input:focus,.fg select:focus{outline:none;border-color:#1D9E75}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.submit-btn{width:100%;padding:9px;background:#1D9E75;border:none;border-radius:var(--border-radius-md);color:#fff;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s}
+.submit-btn:hover{background:#0F6E56}
+.summary-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px}
+.summary-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.summary-row:last-child{border:none;padding-bottom:0}
+.s-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.s-name{font-size:13px;font-weight:500;color:var(--color-text-primary);width:120px;flex-shrink:0}
+.s-bar-wrap{flex:1;height:6px;background:var(--color-border-tertiary);border-radius:3px;overflow:hidden}
+.s-bar{height:100%;border-radius:3px;transition:width .5s}
+.s-pct{font-size:12px;font-weight:500;width:36px;text-align:right;flex-shrink:0}
+.s-sessions{font-size:11px;color:var(--color-text-tertiary);width:60px;text-align:right;flex-shrink:0}
+.empty{text-align:center;padding:28px;color:var(--color-text-tertiary);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.empty i{font-size:28px;opacity:.4}
+.modal-overlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,.4);border-radius:var(--border-radius-lg);align-items:center;justify-content:center;z-index:20}
+.modal-overlay.open{display:flex}
+.modal{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:20px;width:300px}
+.modal-head{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modal-head i{color:#1D9E75;font-size:17px}
+.modal-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.cancel-btn{padding:7px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);font-size:13px;cursor:pointer}
+.cancel-btn:hover{background:var(--color-background-secondary)}
+.toast{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:#1D9E75;color:#fff;font-size:12px;font-weight:500;padding:8px 16px;border-radius:999px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.toast.show{opacity:1}
+</style>
+
+<h2 class="sr-only">Study Planner — interactive dashboard to manage courses and log study sessions</h2>
+
+<div style="position:relative">
+<div class="sp-wrap">
+  <div class="sp-header">
+    <div class="sp-logo">
+      <div class="sp-logo-icon"><i class="ti ti-notebook" aria-hidden="true"></i></div>
+      <div>
+        <div class="sp-logo-text">Study Planner</div>
+        <div class="sp-logo-sub">Track · Improve · Succeed</div>
+      </div>
+    </div>
+    <div class="sp-nav">
+      <button class="sp-nav-btn active" onclick="nav('dashboard',this)"><i class="ti ti-home" aria-hidden="true"></i>Dashboard</button>
+      <button class="sp-nav-btn" onclick="nav('courses',this)"><i class="ti ti-books" aria-hidden="true"></i>Courses</button>
+      <button class="sp-nav-btn" onclick="nav('log',this)"><i class="ti ti-clock" aria-hidden="true"></i>Log</button>
+      <button class="sp-nav-btn" onclick="nav('summary',this)"><i class="ti ti-chart-bar" aria-hidden="true"></i>Summary</button>
+    </div>
+  </div>
+
+  <div class="sp-body">
+
+    <div id="p-dashboard" class="panel active">
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-icon teal"><i class="ti ti-books" aria-hidden="true"></i></div>
+          <div><div class="kpi-val" id="k-courses">0</div><div class="kpi-label">Courses</div></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-icon purple"><i class="ti ti-clock" aria-hidden="true"></i></div>
+          <div><div class="kpi-val" id="k-hours">0h</div><div class="kpi-label">Hours this week</div></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-icon amber"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div><div class="kpi-val" id="k-focus">—</div><div class="kpi-label">Avg focus</div></div>
+        </div>
+      </div>
+      <div class="section-title">Course progress</div>
+      <div id="dash-list" class="course-grid"></div>
+    </div>
+
+    <div id="p-courses" class="panel">
+      <div class="section-title">Your courses</div>
+      <div id="course-list" class="course-grid"></div>
+      <button class="add-btn" onclick="openAdd()"><i class="ti ti-plus" aria-hidden="true"></i>Add new course</button>
+    </div>
+
+    <div id="p-log" class="panel">
+      <div class="form-card">
+        <div class="form-title"><i class="ti ti-clock" aria-hidden="true"></i>Log a study session</div>
+        <div class="fg">
+          <label>Course</label>
+          <select id="log-course"><option value="">Choose course…</option></select>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Duration (hours)</label>
+            <input id="log-hours" type="number" min="0.5" max="8" step="0.5" value="1.5">
+          </div>
+          <div class="fg">
+            <label>Focus level (1–10)</label>
+            <input id="log-focus" type="number" min="1" max="10" step="1" value="7">
+          </div>
+        </div>
+        <button class="submit-btn" onclick="logSession()"><i class="ti ti-check" aria-hidden="true"></i>Save session</button>
+      </div>
+      <div id="recent-sessions"></div>
+    </div>
+
+    <div id="p-summary" class="panel">
+      <div class="section-title">Weekly completion</div>
+      <div class="summary-card" id="summary-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head"><i class="ti ti-books" aria-hidden="true"></i><span id="modal-title">Add course</span></div>
+    <div class="fg"><label>Course name</label><input id="m-name" placeholder="e.g. Mathematics"></div>
+    <div class="form-row">
+      <div class="fg"><label>Weekly hours goal</label><input id="m-hours" type="number" min="1" max="40" value="5"></div>
+      <div class="fg"><label>Difficulty (1–10)</label><input id="m-diff" type="number" min="1" max="10" value="5"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      <button class="submit-btn" style="width:auto;padding:7px 18px" onclick="saveCourse()"><i class="ti ti-check" aria-hidden="true"></i>Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const PALETTE=['#1D9E75','#534AB7','#D85A30','#185FA5','#BA7517','#993556','#639922'];
+let state={
+  courses:{
+    'Mathematics':{weekly_hours:8,difficulty_level:8},
+    'Physics':{weekly_hours:6,difficulty_level:7},
+    'Data Structures':{weekly_hours:5,difficulty_level:9}
+  },
+  sessions:[],
+  editKey:null
+};
+
+function color(name){let h=0;for(let c of name)h=(h*31+c.charCodeAt(0))%PALETTE.length;return PALETTE[h];}
+
+function ring(pct,col,size=40){
+  const r=14,cx=20,cy=20,circ=2*Math.PI*r;
+  const dash=Math.min(1,(pct/100))*circ;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 40 40">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--color-border-tertiary)" stroke-width="4"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="4"
+      stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"
+      stroke-dashoffset="${(circ/4).toFixed(1)}" stroke-linecap="round"/>
+    <text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="9" font-weight="500" fill="${col}">${pct}%</text>
+  </svg>`;
+}
+
+function nav(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sp-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='dashboard')renderDash();
+  if(id==='courses')renderCourses();
+  if(id==='log')renderLog();
+  if(id==='summary')renderSummary();
+}
+
+function renderDash(){
+  const names=Object.keys(state.courses);
+  document.getElementById('k-courses').textContent=names.length;
+  const tot=state.sessions.reduce((s,x)=>s+x.duration,0);
+  document.getElementById('k-hours').textContent=tot.toFixed(1)+'h';
+  const avg=state.sessions.length?(state.sessions.reduce((s,x)=>s+x.focus,0)/state.sessions.length).toFixed(1):'—';
+  document.getElementById('k-focus').textContent=avg;
+  const el=document.getElementById('dash-list');
+  if(!names.length){el.innerHTML='<div class="empty"><i class="ti ti-books" aria-hidden="true"></i>No courses yet — add some!</div>';return;}
+  el.innerHTML=names.map(n=>{
+    const c=state.courses[n];
+    const done=state.sessions.filter(s=>s.course===n).reduce((s,x)=>s+x.duration,0);
+    const pct=Math.min(100,Math.round((done/c.weekly_hours)*100));
+    const col=color(n);
+    return `<div class="c-card">
+      <div class="c-ring-wrap">${ring(pct,col)}</div>
+      <div class="c-info">
+        <div class="c-name">${n}</div>
+        <div class="c-sub">${done.toFixed(1)}h of ${c.weekly_hours}h goal</div>
+        <div class="c-bar-wrap"><div class="c-bar" style="width:${pct}%;background:${col}"></div></div>
+      </div>
+      <span class="pill pill-diff">Lvl ${c.difficulty_level}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderCourses(){
+  const names=Object.keys(state.courses);
+  const el=document.getElementById('course-list');
+  if(!names.length){el.innerHTML='<div class="empty"><i class="ti ti-books" aria-hidden="true"></i>No courses yet.</div>';return;}
+  el.innerHTML=names.map(n=>{
+    const c=state.courses[n];
+    const done=state.sessions.filter(s=>s.course===n).reduce((s,x)=>s+x.duration,0);
+    const pct=Math.min(100,Math.round((done/c.weekly_hours)*100));
+    const col=color(n);
+    return `<div class="c-card">
+      <div class="c-ring-wrap">${ring(pct,col)}</div>
+      <div class="c-info">
+        <div class="c-name">${n}</div>
+        <div class="c-sub">Goal: ${c.weekly_hours}h/week</div>
+        <div class="c-bar-wrap"><div class="c-bar" style="width:${pct}%;background:${col}"></div></div>
+      </div>
+      <span class="pill pill-diff">Diff ${c.difficulty_level}</span>
+      <div class="c-actions">
+        <button class="icon-btn" onclick="openEdit('${n}')" aria-label="Edit ${n}"><i class="ti ti-edit" aria-hidden="true"></i></button>
+        <button class="icon-btn danger" onclick="delCourse('${n}')" aria-label="Delete ${n}"><i class="ti ti-trash" aria-hidden="true"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderLog(){
+  const sel=document.getElementById('log-course');
+  const names=Object.keys(state.courses);
+  sel.innerHTML='<option value="">Choose course…</option>'+names.map(n=>`<option>${n}</option>`).join('');
+  const recent=state.sessions.slice(-3).reverse();
+  const el=document.getElementById('recent-sessions');
+  if(!recent.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="section-title" style="margin-bottom:8px">Recent sessions</div>`+
+    recent.map(s=>`<div class="c-card" style="padding:10px 14px">
+      <div class="kpi-icon teal" style="width:30px;height:30px;font-size:14px"><i class="ti ti-clock" aria-hidden="true"></i></div>
+      <div class="c-info"><div class="c-name" style="font-size:13px">${s.course}</div><div class="c-sub">${s.duration}h · focus ${s.focus}/10 · ${s.date}</div></div>
+      <span class="pill pill-done">${s.duration}h</span>
+    </div>`).join('');
+}
+
+function renderSummary(){
+  const names=Object.keys(state.courses);
+  const el=document.getElementById('summary-list');
+  if(!names.length){el.innerHTML='<div class="empty"><i class="ti ti-chart-bar" aria-hidden="true"></i>Add courses to see your summary.</div>';return;}
+  el.innerHTML=names.map(n=>{
+    const c=state.courses[n];
+    const sess=state.sessions.filter(s=>s.course===n);
+    const done=sess.reduce((s,x)=>s+x.duration,0);
+    const pct=Math.min(100,Math.round((done/c.weekly_hours)*100));
+    const col=color(n);
+    return `<div class="summary-row">
+      <div class="s-dot" style="background:${col}"></div>
+      <div class="s-name">${n}</div>
+      <div class="s-bar-wrap"><div class="s-bar" style="width:${pct}%;background:${col}"></div></div>
+      <div class="s-pct" style="color:${col}">${pct}%</div>
+      <div class="s-sessions">${sess.length} session${sess.length!==1?'s':''}</div>
+    </div>`;
+  }).join('');
+}
+
+function openAdd(){state.editKey=null;document.getElementById('modal-title').textContent='Add course';document.getElementById('m-name').value='';document.getElementById('m-name').disabled=false;document.getElementById('m-hours').value=5;document.getElementById('m-diff').value=5;document.getElementById('modal').classList.add('open');}
+function openEdit(n){state.editKey=n;const c=state.courses[n];document.getElementById('modal-title').textContent='Edit course';document.getElementById('m-name').value=n;document.getElementById('m-name').disabled=true;document.getElementById('m-hours').value=c.weekly_hours;document.getElementById('m-diff').value=c.difficulty_level;document.getElementById('modal').classList.add('open');}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+function saveCourse(){
+  const name=state.editKey||document.getElementById('m-name').value.trim();
+  const hours=parseInt(document.getElementById('m-hours').value);
+  const diff=parseInt(document.getElementById('m-diff').value);
+  if(!name||!hours||!diff)return;
+  state.courses[name]={weekly_hours:hours,difficulty_level:diff};
+  closeModal();renderCourses();
+  toast('<i class="ti ti-check"></i> '+(state.editKey?name+' updated':name+' added'));
+}
+
+function delCourse(n){delete state.courses[n];state.sessions=state.sessions.filter(s=>s.course!==n);renderCourses();toast('<i class="ti ti-trash"></i> '+n+' removed');}
+
+function logSession(){
+  const course=document.getElementById('log-course').value;
+  const dur=parseFloat(document.getElementById('log-hours').value);
+  const focus=parseInt(document.getElementById('log-focus').value);
+  if(!course||!dur||isNaN(focus))return;
+  const d=new Date();
+  state.sessions.push({course,duration:dur,focus,date:d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})});
+  renderLog();
+  toast('<i class="ti ti-check"></i> Session logged for '+course);
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.innerHTML=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+renderDash();
+</script>
